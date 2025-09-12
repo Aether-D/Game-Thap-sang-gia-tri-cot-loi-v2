@@ -392,9 +392,19 @@
             const mazeHeight = maze.length * TILE_SIZE;
             canvas.width = mazeWidth;
             canvas.height = mazeHeight;
-            const scale = Math.min(containerWidth / mazeWidth, 1);
-            canvas.style.width = `${mazeWidth * scale}px`;
-            canvas.style.height = `${mazeHeight * scale}px`;
+
+            // Phân biệt logic co giãn cho màn hình desktop và mobile
+            if (window.innerWidth < 1024) {
+                // Trên mobile (màn hình nhỏ hơn 1024px), co giãn canvas để vừa với chiều rộng container
+                const scale = Math.min(containerWidth / mazeWidth, 1);
+                canvas.style.width = `${mazeWidth * scale}px`;
+                canvas.style.height = `${mazeHeight * scale}px`;
+            } else {
+                // Trên desktop (màn hình lớn hơn hoặc bằng 1024px), giữ nguyên kích thước gốc của canvas
+                canvas.style.width = `${mazeWidth}px`;
+                canvas.style.height = `${mazeHeight}px`;
+            }
+            
             draw();
         }
 
@@ -576,3 +586,4 @@
     </script>
 </body>
 </html>
+
